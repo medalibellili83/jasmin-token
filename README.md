@@ -4,6 +4,10 @@ A minimal ERC-20 token written from scratch in Solidity (no external libraries),
 
 Built to understand exactly how tokens like USDT and USDC work under the hood: balances, transfers, allowances, burning and events.
 
+## Live on Sepolia
+
+Deployed at [`0x2D5E0f880F4681ee800B49f2B2b9202201A72ACF`](https://sepolia.etherscan.io/address/0x2D5E0f880F4681ee800B49f2B2b9202201A72ACF) (1,000,000 JSM).
+
 ## Features
 
 - Standard ERC-20 interface: `transfer`, `approve`, `transferFrom`, `balanceOf`, `allowance`, `totalSupply`
@@ -28,12 +32,13 @@ anvil
 forge script script/DeployJasminToken.s.sol --rpc-url http://127.0.0.1:8545 --private-key <anvil_test_key> --broadcast
 ```
 
-Sepolia testnet (using an encrypted Foundry keystore, never a raw private key):
+Sepolia testnet, signing with MetaMask in the browser (no private key leaves the wallet):
 
 ```shell
-cast wallet import dev --interactive
-forge script script/DeployJasminToken.s.sol --rpc-url sepolia --account dev --broadcast
+forge create src/JasminToken.sol:JasminToken --rpc-url sepolia --browser --broadcast --constructor-args 1000000000000000000000000
 ```
+
+`forge create` estimates gas through the RPC. `--constructor-args` must come last, since it consumes every argument after it.
 
 ## Stack
 
